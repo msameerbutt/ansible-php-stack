@@ -1,0 +1,55 @@
+version: '3.7'
+
+networks:
+  ansible-stack:
+
+services:
+  # Ansible Master
+  master:
+    image: ${APP_BASE}/ansible:latest
+    build:
+      dockerfile: python.dockerfile
+      context: ${PWD}/master     
+    container_name: ansible
+    environment:
+      - SSH_AUTH_SOCK="/ssh-agent"
+    volumes:
+      - ./code:/work
+      - ${PWD}/keys/id_node_user:/root/.ssh/id_rsa
+      - ${SSH_AUTH_SOCK}:/ssh-agent
+    tty: true
+    secrets:
+      - id_rsa    
+    command: ["bash"] 
+    networks:
+      - ansible-stack
+
+  # Ansible Node 1 
+  node1:
+    image: ${APP_BASE}/ansible:node
+    build:
+      dockerfile: centos.dockerfile
+      context: ${PWD}/node
+    container_name: node1
+    volumes:
+      - ${PWD}/keys/id_node_user.pub:/home/node_user/.ssh/authorized_keys
+    tty: true
+    networks:
+      - ansible-stack       
+
+  # Ansible Node 2
+  node2:
+    image: ${APP_BASE}/ansible:node
+    build:
+      dockerfile: centos.dockerfile
+      context: ${PWD}/node
+    container_name: node2
+    volumes:
+      - ${PWD}/keys/id_node_user.pub:/home/node_user/.ssh/authorized_keys
+    tty: true
+    networks:
+      - ansible-stack     
+
+secrets:
+  id_rsa:
+    file: ${PWD}/keys/id_node_user

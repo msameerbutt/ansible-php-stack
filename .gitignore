@@ -132,7 +132,10 @@ fabric.properties
 *.crt
 *.csr
 *.key
+*.pub
 .env
+
+
 
 # OS generated files #
 ######################
@@ -145,5 +148,6 @@ fabric.properties
 .vscode/
 tmp/
 logs/
+keys/
 ehthumbs.db
 Thumbs.db
