@@ -1,0 +1,104 @@
+version: '3.7'
+
+networks:
+  prod-stack:
+
+services:
+  # Master
+  master:
+    image: ${APP_BASE}/master
+    build:
+      dockerfile: python.dockerfile
+      context: ${PWD}/master     
+    container_name: ansible
+    environment:
+      - SSH_AUTH_SOCK="/ssh-agent"
+    volumes:
+      - ${PWD}/code:/work
+      - ${PWD}/keys/id_node_user:/root/.ssh/id_rsa
+      - ${SSH_AUTH_SOCK}:/ssh-agent
+    tty: true
+    secrets:
+      - id_rsa    
+    command: ["bash"] 
+    networks:
+      - prod-stack
+
+  # Web Host 1 
+  node1:
+    image: ${APP_BASE}/node
+    build:
+      dockerfile: centos.dockerfile
+      context: ${PWD}/node
+    container_name: node1
+    volumes:
+      - ${PWD}/keys/id_node_user.pub:/home/node_user/.ssh/authorized_keys
+    tty: true
+    networks:
+      prod-stack:
+        aliases: 
+          - app.prod.host1       
+
+  # Web Host 2
+  node2:
+    image: ${APP_BASE}/node
+    build:
+      dockerfile: centos.dockerfile
+      context: ${PWD}/node
+    container_name: node2
+    volumes:
+      - ${PWD}/keys/id_node_user.pub:/home/node_user/.ssh/authorized_keys
+    tty: true
+    networks:
+      prod-stack:
+        aliases: 
+          - app.prod.host2
+
+  # Mysql Host
+  node3:
+    image: ${APP_BASE}/node
+    build:
+      dockerfile: centos.dockerfile
+      context: ${PWD}/node
+    container_name: node3
+    volumes:
+      - ${PWD}/keys/id_node_user.pub:/home/node_user/.ssh/authorized_keys
+    tty: true
+    networks:
+      prod-stack:
+        aliases: 
+          - app.prod.db1           
+
+  # Redis Host
+  node4:
+    image: ${APP_BASE}/node
+    build:
+      dockerfile: centos.dockerfile
+      context: ${PWD}/node
+    container_name: node4
+    volumes:
+      - ${PWD}/keys/id_node_user.pub:/home/node_user/.ssh/authorized_keys
+    tty: true
+    networks:
+      prod-stack:
+        aliases: 
+          - app.prod.redis
+         
+  # Mail Host
+  node5:
+    image: ${APP_BASE}/node
+    build:
+      dockerfile: centos.dockerfile
+      context: ${PWD}/node
+    container_name: node5
+    volumes:
+      - ${PWD}/keys/id_node_user.pub:/home/node_user/.ssh/authorized_keys
+    tty: true
+    networks:
+      prod-stack:
+        aliases: 
+          - app.prod.mail
+
+secrets:
+  id_rsa:
+    file: ${PWD}/keys/id_node_user

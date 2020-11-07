@@ -6,7 +6,7 @@ networks:
 services:
   # Ansible Master
   master:
-    image: ${APP_BASE}/ansible:latest
+    image: ${APP_BASE}/master
     build:
       dockerfile: python.dockerfile
       context: ${PWD}/master     
@@ -26,7 +26,7 @@ services:
 
   # Ansible Node 1 
   node1:
-    image: ${APP_BASE}/ansible:node
+    image: ${APP_BASE}/node
     build:
       dockerfile: centos.dockerfile
       context: ${PWD}/node
@@ -39,7 +39,7 @@ services:
 
   # Ansible Node 2
   node2:
-    image: ${APP_BASE}/ansible:node
+    image: ${APP_BASE}/node
     build:
       dockerfile: centos.dockerfile
       context: ${PWD}/node
