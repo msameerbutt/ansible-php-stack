@@ -13,8 +13,11 @@ services:
     container_name: ansible
     environment:
       - SSH_AUTH_SOCK="/ssh-agent"
+      - ANSIBLE_CONFIG="/etc/ansible/ansible.cfg"
     volumes:
       - ${PWD}/code:/work
+      - ${PWD}/master/roles:/etc/ansible/roles
+      - ${PWD}/master/ansible.cfg:/etc/ansible/ansible.cfg
       - ${PWD}/keys/id_node_user:/root/.ssh/id_rsa
       - ${SSH_AUTH_SOCK}:/ssh-agent
     tty: true

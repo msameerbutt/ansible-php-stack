@@ -149,5 +149,6 @@ fabric.properties
 tmp/
 logs/
 keys/
+master/roles
 ehthumbs.db
 Thumbs.db

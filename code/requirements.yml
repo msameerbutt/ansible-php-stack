@@ -1,0 +1,18 @@
+---
+#
+# Ansible galaxy requirements file
+#
+# Basic Usage : http://docs.ansible.com/ansible/latest/reference_appendices/galaxy.html
+# Awesome Voodoo-fu : https://www.jeffgeerling.com/blog/2017/patching-or-using-forked-version-ansible-galaxy-role
+#
+# Update all dependencies with : ansible-galaxy install -r requirements.yml --force
+#
+
+- src: geerlingguy.composer
+- src: geerlingguy.nginx
+- src: geerlingguy.php
+- src: geerlingguy.pip
+- src: geerlingguy.supervisor
+- src: geerlingguy.mysql
+- src: geerlingguy.redis
+- src: ontic.logrotate

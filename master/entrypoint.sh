@@ -1,10 +1,16 @@
 #!/bin/bash
 
+# Install any roles
+if [ -f "/work/requirements.yml" ]; then
+    ansible-galaxy install -r /work/requirements.yml --force
+fi
+
+# Add Private Key to SSH Agent
 if [ -f "/run/secrets/id_rsa" ]; then
     echo "Add into known hosts"
     # ssh-keyscan github.com > /root/.ssh/known_hosts
-    ssh-keyscan -H node1 >> ~/.ssh/known_hosts
-    ssh-keyscan -H node2 >> ~/.ssh/known_hosts
+    ssh-keyscan -H app.prod.host1 >> ~/.ssh/known_hosts
+    ssh-keyscan -H app.prod.host2 >> ~/.ssh/known_hosts
     ssh-keyscan -H node3 >> ~/.ssh/known_hosts
     ssh-keyscan -H node4 >> ~/.ssh/known_hosts
     ssh-keyscan -H node5 >> ~/.ssh/known_hosts

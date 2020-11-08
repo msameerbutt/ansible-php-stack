@@ -11,7 +11,10 @@ WORKDIR /work
 
 # Entrypoint
 COPY ./entrypoint.sh /usr/local/bin/docker-entrypoint
+COPY ./.bashrc /root/.bashrc
+
 RUN mkdir /root/.ssh && \
-    chmod +x /usr/local/bin/docker-entrypoint
+    chmod +x /usr/local/bin/docker-entrypoint && \
+    chmod +x /root/.bashrc
 
 ENTRYPOINT ["docker-entrypoint"]
