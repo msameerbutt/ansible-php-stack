@@ -17,9 +17,9 @@ RUN useradd node_user && \
     chmod 600 /home/node_user/.ssh/authorized_keys
 
 RUN sed -ri 's/#PermitRootLogin yes/PermitRootLogin yes/g' /etc/ssh/sshd_config
-# http://stackoverflow.com/quessshtions/18173889/cannot-access-centos-sshd-on-docker
+ # http://stackoverflow.com/quessshtions/18173889/cannot-access-centos-sshd-on-docker
 RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
-RUN sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config    
+RUN sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config   
 
 EXPOSE 22
 

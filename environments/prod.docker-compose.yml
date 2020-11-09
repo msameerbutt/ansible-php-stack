@@ -12,6 +12,7 @@ services:
       context: ${PWD}/master     
     container_name: ansible
     environment:
+      - APP_ENV=${APP_ENV}
       - SSH_AUTH_SOCK="/ssh-agent"
       - ANSIBLE_CONFIG="/etc/ansible/ansible.cfg"
     volumes:

@@ -1,0 +1,19 @@
+---
+#
+# Base host setup common to all servers.
+#
+- hosts: all
+
+  vars:
+    timezone: UTC
+
+  handlers:
+  - name: restart sshd
+    service: name=sshd state=restarted
+
+  roles:
+  - yatesr.timezone
+
+  tasks:
+  - name: Set hostname
+    hostname: name={{ inventory_hostname }}

@@ -8,6 +8,7 @@
 # Update all dependencies with : ansible-galaxy install -r requirements.yml --force
 #
 
+- src: yatesr.timezone
 - src: geerlingguy.composer
 - src: geerlingguy.nginx
 - src: geerlingguy.php

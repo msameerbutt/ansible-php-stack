@@ -24,9 +24,9 @@ services:
     networks:
       - ansible-stack
 
-  # Ansible Node 1 
+  # Ansible Node Centos 1 
   node1:
-    image: ${APP_BASE}/node
+    image: ${APP_BASE}/entos_node
     build:
       dockerfile: centos.dockerfile
       context: ${PWD}/node
@@ -35,20 +35,20 @@ services:
       - ${PWD}/keys/id_node_user.pub:/home/node_user/.ssh/authorized_keys
     tty: true
     networks:
-      - ansible-stack       
+      - ansible-stack
 
-  # Ansible Node 2
+  # Ansible Node Ubuntu 2
   node2:
-    image: ${APP_BASE}/node
+    image: ${APP_BASE}/ubuntu_node
     build:
-      dockerfile: centos.dockerfile
+      dockerfile: ubuntu.dockerfile
       context: ${PWD}/node
     container_name: node2
     volumes:
       - ${PWD}/keys/id_node_user.pub:/home/node_user/.ssh/authorized_keys
     tty: true
     networks:
-      - ansible-stack     
+      - ansible-stack
 
 secrets:
   id_rsa:

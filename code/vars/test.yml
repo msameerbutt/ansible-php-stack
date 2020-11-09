@@ -1,0 +1,2 @@
+# PHP-FPM configuration Production.
+php_default_version_debian: "7.4"
