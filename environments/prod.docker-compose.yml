@@ -30,26 +30,28 @@ services:
 
   # Web Host 1 
   node1:
-    image: ${APP_BASE}/node
+    image: ${APP_BASE}/ubuntu_node
     build:
-      dockerfile: centos.dockerfile
+      dockerfile: ubuntu.dockerfile
       context: ${PWD}/node
     container_name: node1
+    privileged: true
     volumes:
       - ${PWD}/keys/id_node_user.pub:/home/node_user/.ssh/authorized_keys
     tty: true
     networks:
       prod-stack:
         aliases: 
-          - app.prod.host1       
+          - app.prod.host1
 
   # Web Host 2
   node2:
-    image: ${APP_BASE}/node
+    image: ${APP_BASE}/ubuntu_node
     build:
-      dockerfile: centos.dockerfile
+      dockerfile: ubuntu.dockerfile
       context: ${PWD}/node
     container_name: node2
+    privileged: true
     volumes:
       - ${PWD}/keys/id_node_user.pub:/home/node_user/.ssh/authorized_keys
     tty: true
@@ -60,11 +62,12 @@ services:
 
   # Mysql Host
   node3:
-    image: ${APP_BASE}/node
+    image: ${APP_BASE}/ubuntu_node
     build:
-      dockerfile: centos.dockerfile
+      dockerfile: ubuntu.dockerfile
       context: ${PWD}/node
     container_name: node3
+    privileged: true
     volumes:
       - ${PWD}/keys/id_node_user.pub:/home/node_user/.ssh/authorized_keys
     tty: true
@@ -75,11 +78,12 @@ services:
 
   # Redis Host
   node4:
-    image: ${APP_BASE}/node
+    image: ${APP_BASE}/ubuntu_node
     build:
-      dockerfile: centos.dockerfile
+      dockerfile: ubuntu.dockerfile
       context: ${PWD}/node
     container_name: node4
+    privileged: true
     volumes:
       - ${PWD}/keys/id_node_user.pub:/home/node_user/.ssh/authorized_keys
     tty: true
@@ -90,11 +94,12 @@ services:
          
   # Mail Host
   node5:
-    image: ${APP_BASE}/node
+    image: ${APP_BASE}/ubuntu_node
     build:
-      dockerfile: centos.dockerfile
+      dockerfile: ubuntu.dockerfile
       context: ${PWD}/node
     container_name: node5
+    privileged: true
     volumes:
       - ${PWD}/keys/id_node_user.pub:/home/node_user/.ssh/authorized_keys
     tty: true

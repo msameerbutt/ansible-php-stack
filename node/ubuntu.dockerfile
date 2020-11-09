@@ -10,7 +10,8 @@ RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' -y
 RUN ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N '' -y
 
 # Add node_user and its files to this machine
-RUN useradd node_user && \
+RUN echo 'root:root_user' | chpasswd && \
+    useradd node_user && \
     usermod -aG sudo node_user && \
     echo "node_user:node_user_password" | chpasswd && \
     mkdir -p /home/node_user/.ssh && \

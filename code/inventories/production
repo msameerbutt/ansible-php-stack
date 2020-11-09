@@ -16,4 +16,5 @@ post_install_script=/var/www/post-install
 
 [all:vars]
 ansible_ssh_user=node_user
+#ansible_ssh_user=root
 ansible_ssh_private_key_file=/run/secrets/id_rsa

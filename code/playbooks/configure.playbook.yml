@@ -3,7 +3,8 @@
 # Base host setup common to all servers.
 #
 - hosts: all
-
+  become: yes
+  
   vars:
     timezone: UTC
 
