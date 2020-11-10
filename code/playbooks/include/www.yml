@@ -1,0 +1,33 @@
+---
+#
+# We're using nginx for www services.
+#   
+- hosts: web
+  vars_files:
+    - /work/inventories/vars/production.yml
+  become: yes
+  pre_tasks:
+    - name: Make /etc/ssl/www directory
+      file: path=/etc/ssl/www state=directory owner=root group=root mode=0600
+
+    - name: Copy SSL certificates into /etc/ssl/www for web servers
+      copy: src={{ SSLCertificateSrcDir }}/{{ item }} dest=/etc/ssl/www/{{ item }} mode=0600 owner=root group=root 
+      with_items: "{{ SSLCertificateFiles }}"
+
+  roles:
+    - geerlingguy.nginx
+
+  tasks:
+    - name: Create deploy user to setup directory ownerships
+      user: name=deploy shell=/bin/bash groups=nginx group=nginx append=yes
+
+    - name: Make /var/www 
+      file: path=/var/www state=directory owner=deploy group=nginx mode=0755 
+
+    - name: Create vhost root directories 
+      file: path="{{ item.root }}" state=directory owner=deploy group=nginx mode=0770 recurse=yes
+      loop: "{{ nginx_vhosts }}"
+      when: item.root is defined
+
+    - name: Copy .htaccess into /var/www for password protection during development
+      copy: src={{ SSLCertificateSrcDir }}/.htpasswd dest=/var/www/.htpasswd mode=0755 owner=root group=root

@@ -13,6 +13,7 @@ RUN ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N '' -y
 RUN echo 'root:root_user' | chpasswd && \
     useradd node_user && \
     usermod -aG sudo node_user && \
+    groupadd -g 10000 nginx && \
     echo "node_user:node_user_password" | chpasswd && \
     mkdir -p /home/node_user/.ssh && \
     chmod 700 /home/node_user/.ssh && \
@@ -30,4 +31,11 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 
 EXPOSE 22
 
-CMD ["/usr/sbin/sshd", "-D"]
+# Entrypoint
+COPY ./entrypoint.sh /usr/local/bin/docker-entrypoint
+RUN chmod +x /usr/local/bin/docker-entrypoint
+
+ENTRYPOINT ["docker-entrypoint"]
+
+#CMD ["/usr/sbin/sshd", "-D"]
+CMD ["bash"]

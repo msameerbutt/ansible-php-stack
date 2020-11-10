@@ -10,7 +10,7 @@
 
   handlers:
   - name: restart sshd
-    service: name=sshd state=restarted
+    command: sudo /etc/init.d/ssh restart
 
   roles:
   - yatesr.timezone
@@ -18,3 +18,48 @@
   tasks:
   - name: Set hostname
     hostname: name={{ inventory_hostname }}
+
+  - name: Ensure swap is enabled
+    command: swapon -a
+
+  - name: Disallow password authentication
+    lineinfile:
+      dest: /etc/ssh/sshd_config
+      state: present
+      regexp: "^PasswordAuthentication"
+      line: "PasswordAuthentication no"
+    notify: restart sshd
+
+  - name: Disallow challenge response authentication
+    lineinfile:
+      dest: /etc/ssh/sshd_config
+      state: present
+      regexp: "^ChallengeResponseAuthentication"
+      line: "ChallengeResponseAuthentication no"
+    notify: restart sshd
+
+  - name: Install packages
+    apt: 
+      pkg:
+        - dnsutils
+        - curl
+        - zip
+        - lsof
+        - vim
+        - unzip 
+      state: present
+
+#
+# Configuration of system services
+#
+#- import_playbook: /work/playbooks/include/firewall.yml
+- hosts: all
+  become: yes
+
+  roles:
+    - ontic.logrotate
+
+#
+# Order is important, php.yml relies on nginx user existing which is created in www.yml
+#
+- import_playbook: /work/playbooks/include/www.yml    

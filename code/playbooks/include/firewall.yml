@@ -1,0 +1,33 @@
+---
+#
+# Basic Firwall settings
+#
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: install firewalld 
+      apt: name=firewalld state=present
+
+    - name: open up port 22 for tcp
+      firewalld: port=22/tcp permanent=yes state=enabled
+
+    - name: ensure that firewalld is started and enable at boot
+      service: name=firewalld enabled=yes state=started            
+
+    - name: open up port 80 for tcp
+      firewalld: port=80/tcp permanent=yes state=enabled
+      notify: restart firewalld
+
+    - name: open up port 443 for tcp
+      firewalld: port=443/tcp permanent=yes state=enabled
+      notify: restart firewalld
+
+    - name: open up port 3306 for tcp to our hosts only
+      firewalld: port=3306/tcp permanent=yes zone=trusted state=enabled source={{ hostvars[item]['ansible_default_ipv4']['address'] }}/32
+      loop: "{{ groups['all'] }}"
+      when: inventory_hostname != item
+
+  handlers:
+    - name: restart firewalld
+      service: name=firewalld state=restarted

@@ -16,4 +16,9 @@
 - src: geerlingguy.supervisor
 - src: geerlingguy.mysql
 - src: geerlingguy.redis
+- src: geerlingguy.firewall
+- src: geerlingguy.mysql
+- src: geerlingguy.repo-remi
+- src: geerlingguy.repo-epel
 - src: ontic.logrotate
+- src: resmo.ntp
