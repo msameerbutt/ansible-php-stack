@@ -16,8 +16,8 @@
   - yatesr.timezone
 
   tasks:
-  - name: Set hostname
-    hostname: name={{ inventory_hostname }}
+  #- name: Set hostname
+  #  hostname: name={{ inventory_hostname }}
 
   - name: Ensure swap is enabled
     command: swapon -a
@@ -62,4 +62,5 @@
 #
 # Order is important, php.yml relies on nginx user existing which is created in www.yml
 #
-- import_playbook: /work/playbooks/include/www.yml    
+- import_playbook: /work/playbooks/include/www.yml
+- import_playbook: /work/playbooks/include/php.yml

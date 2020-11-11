@@ -5,14 +5,24 @@
 - hosts: web
   vars_files:
     - /work/inventories/vars/production.yml
+
   become: yes
   pre_tasks:
     - name: Make /etc/ssl/www directory
-      file: path=/etc/ssl/www state=directory owner=root group=root mode=0600
+      file: path=/etc/ssl/www state=directory owner=node_user group=root mode=0600
 
     - name: Copy SSL certificates into /etc/ssl/www for web servers
-      copy: src={{ SSLCertificateSrcDir }}/{{ item }} dest=/etc/ssl/www/{{ item }} mode=0600 owner=root group=root 
+      copy: src={{ SSLCertificateSrcDir }}/{{ item }} dest=/etc/ssl/www/{{ item }} mode=0600 owner=node_user group=root 
       with_items: "{{ SSLCertificateFiles }}"
+
+    - name: Ensure group "nginx" exists with correct gid
+      group:
+        name: nginx
+        state: present
+        gid: 10000
+
+    - name: Create nginx user for nginx
+      user: name=nginx shell=/bin/bash groups=nginx group=nginx append=yes
 
   roles:
     - geerlingguy.nginx
@@ -30,4 +40,4 @@
       when: item.root is defined
 
     - name: Copy .htaccess into /var/www for password protection during development
-      copy: src={{ SSLCertificateSrcDir }}/.htpasswd dest=/var/www/.htpasswd mode=0755 owner=root group=root
+      copy: src={{ SSLCertificateSrcDir }}/.htpasswd dest=/var/www/.htpasswd mode=0755 owner=node_user group=root

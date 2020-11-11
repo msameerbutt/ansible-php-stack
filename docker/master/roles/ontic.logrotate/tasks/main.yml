@@ -1,0 +1,36 @@
+# Copyright (c) Ontic. (http://www.ontic.com.au). All rights reserved.
+# See the COPYING file bundled with this package for license details.
+
+---
+
+- name: 'Logrotate | Include OS-specific variables.'
+  include_vars: '{{ ansible_os_family }}.yml'
+  tags:
+    - 'logrotate'
+    - 'logrotate-package'
+    - 'logrotate-configure'
+    - 'package'
+    - 'configure'
+
+- name: 'Logrotate | Define Logrotate packages.'
+  set_fact:
+    logrotate_packages: '{{ logrotate_default_packages }}'
+  when: 'not logrotate_packages'
+  tags:
+    - 'logrotate'
+    - 'logrotate-package'
+    - 'logrotate-configure'
+    - 'package'
+    - 'configure'
+
+- import_tasks: 'package.yml'
+  tags:
+    - 'logrotate'
+    - 'logrotate-package'
+    - 'package'
+
+- import_tasks: 'configure.yml'
+  tags:
+    - 'logrotate'
+    - 'logrotate-configure'
+    - 'configure'

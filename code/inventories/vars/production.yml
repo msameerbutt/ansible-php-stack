@@ -5,9 +5,9 @@
 #
 SSLCertificateSrcDir: /work/files/ssl
 SSLCertificateFiles:
-- self.crt
-- self.key
-- self.crt
+- app.www.test.crt
+- app.www.test.key
+- app.www.test.crt
 
 #
 # Logrotate config - used by logrotate role
@@ -57,6 +57,7 @@ logrotate_config_files:
 #
 # PHP settings used by geerlingguy.php
 #
+php_default_version_debian: "7.4"
 php_packages:
 - php-devel
 - php-common
@@ -114,9 +115,9 @@ hosts_entries:
 #
 
 deploy_keys:
-- publickey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC22uNlzj/g5g+4lHtqmnBP0q5iSHnrhlO9ohYWmyCRPR+9g0dO3nrLGsIDhi4VjS3HfazS3R9yNvGvjnU/ygjOq8BIxaecNP7VRzhBjfHhq+bzGKXM+eXzFd9WkDdxZ4YZf6Kn8aAK1gmrOY0KVpxLR9SnEuch30hTCPZZvSgqbF/A0v4rtFQFdHftBPKNXW09HirPMDD6l+CjIiE9YIBE6SLiYIyVUZ/g8FdbBpGfIIeGejO9grogv0CG5eHDz654HIcruqxkxedGAO0GzGHGn2xwE3txLy/Q2PgxztOyMKobo0B1NyyPBxbTw5aammjpf7HG4af0SkvbgBSClREb DeployHQ.com Key for www"
-- publickey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCt3MdL66nVKtaHTzHB56XNR35n5A3F4ETbu+8Ac+5DRlk3W0x0kArJHm2iEY/NcIjMn+zyN/SO+5kLfSRPl5//6YNBnH8Ditc6JjNhsUMZKPVtKTp8f+CwYRsfdoWyzCNRT/wWkW9J3ANtnL0rByBQVNoWVFDuWDR8tvy9g0SI8etqJfygyB/ru5F82W3f1wg8vbcvjQSkybdrSWeIp57DPMPF9uBoW75g1D2EHGUY4wGyGfb0qLyRnTqYH03uaB1EOsq7UlBXLiM999a+XEB5SOq9dytElL8QBABRDR9O4u2lwXzUHtQmicu+mv/fsYy+rNYzvhK6rWFg0xDMxv+b DeployHQ.com Key for my"
-- publickey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDSFTrpHTyVSLLJrXLK/5G8ksoXq2msUTe1ZskRuy1CZZf6MBVShSqFSvYEyVLnIcFxjAd5c9pnR/1Cc45EvQr1M7F5mNvLfrFPLOw0xm78TL9qUCJ3uDfH4eD8ny9l9X6Wek0FZYv8QRIfgOMXd9ioyZoQ69sZMeHQDNuLffl/jSNIXyDKmFqGNIvW+pqUrCLmHM41l2zUhWjGeiS1VnwiuYSZleB3O5JCOFY2f12em7V1ZwpuXEn7CMuBp4k4+vIKcv5//9qsIogYhvt372+SLdvU97FfBuG21+otpu5gVlKmEVYf4z2/TSzmEBLB8tjGJ+hMAMs/sLrDBlDBenJj DeployHQ.com Key for udify-wp-theme"
+- publickey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC22uNlzj/g5g+4lHtqmnBP0q5iSHnrhlO9ohYWmyCRPR+9g0dO3nrLGsIDhi4VjS3HfazS3R9yNvGvjnU/ygjOq8BIxaecNP7VRzhBjfHhq+bzGKXM+eXzFd9WkDdxZ4YZf6Kn8aAK1gmrOY0KVpxLR9SnEuch30hTCPZZvSgqbF/A0v4rtFQFdHftBPKNXW09HirPMDD6l+CjIiE9YIBE6SLiYIyVUZ/g8FdbBpGfIIeGejO9grogv0CG5eHDz654HIcruqxkxedGAO0GzGHGn2xwE3txLy/Q2PgxztOyMKobo0B1NyyPBxbTw5aammjpf7HG4af0SkvbgBSClREb DeployHQ.com Key for dummy1"
+- publickey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCt3MdL66nVKtaHTzHB56XNR35n5A3F4ETbu+8Ac+5DRlk3W0x0kArJHm2iEY/NcIjMn+zyN/SO+5kLfSRPl5//6YNBnH8Ditc6JjNhsUMZKPVtKTp8f+CwYRsfdoWyzCNRT/wWkW9J3ANtnL0rByBQVNoWVFDuWDR8tvy9g0SI8etqJfygyB/ru5F82W3f1wg8vbcvjQSkybdrSWeIp57DPMPF9uBoW75g1D2EHGUY4wGyGfb0qLyRnTqYH03uaB1EOsq7UlBXLiM999a+XEB5SOq9dytElL8QBABRDR9O4u2lwXzUHtQmicu+mv/fsYy+rNYzvhK6rWFg0xDMxv+b DeployHQ.com Key for dummy2"
+- publickey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDSFTrpHTyVSLLJrXLK/5G8ksoXq2msUTe1ZskRuy1CZZf6MBVShSqFSvYEyVLnIcFxjAd5c9pnR/1Cc45EvQr1M7F5mNvLfrFPLOw0xm78TL9qUCJ3uDfH4eD8ny9l9X6Wek0FZYv8QRIfgOMXd9ioyZoQ69sZMeHQDNuLffl/jSNIXyDKmFqGNIvW+pqUrCLmHM41l2zUhWjGeiS1VnwiuYSZleB3O5JCOFY2f12em7V1ZwpuXEn7CMuBp4k4+vIKcv5//9qsIogYhvt372+SLdvU97FfBuG21+otpu5gVlKmEVYf4z2/TSzmEBLB8tjGJ+hMAMs/sLrDBlDBenJj DeployHQ.com Key for dummy3"
 
 #
 # Nginx Settings - used by geerlingguy.nginx
@@ -154,7 +155,7 @@ nginx_extra_http_options: |
 #
 # Where system created email gets sent to
 #
-root_email_alias: hostmaster@adventus.io
+root_email_alias: msameerbutt@gmail.com
 
 #
 # Mysql Wordpress Database Config
@@ -183,13 +184,13 @@ mysql_replication_user:
 nginx_vhosts:
   - listen: "80 default_server"
     server_name: "_"
-    root: "/var/www/adventus.io/current/public"
+    root: "/var/www/app.www.test/current/public"
     index: "index.php index.html index.htm"
     state: "present"
     template: "{{ nginx_vhost_template }}"
-    filename: "adventus.io.conf"
+    filename: "app.www.test.conf"
     extra_parameters: |
-      listen 443 ssl http2 default_server;
+      listen 443 ssl default_server http2;
       location /nginx_status {
         stub_status on;
         access_log   off;
@@ -247,8 +248,8 @@ nginx_vhosts:
         fastcgi_buffers 16 16k; 
         fastcgi_buffer_size 32k;
       }
-      ssl_certificate     /etc/ssl/www/adventus_io.crt;
-      ssl_certificate_key /etc/ssl/www/adventus_io.key;
-      ssl_dhparam       /etc/ssl/www/dhparam.pem;
+      ssl_certificate     /etc/ssl/www/app.www.test.crt;
+      ssl_certificate_key /etc/ssl/www/app.www.test.key;
+      # ssl_dhparam       /etc/ssl/www/dhparam.pem;
       ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
       ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:ECDHE-RSA-AES128-GCM-SHA256:AES256+EECDH:DHE-RSA-AES128-GCM-SHA256:AES256+EDH:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES128-SHA256:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA:DES-CBC3-SHA:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!PSK:!RC4";

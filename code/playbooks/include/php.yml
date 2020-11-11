@@ -1,0 +1,26 @@
+---
+#
+# Configure php & php-fpm
+#
+- hosts: web
+  vars_files:
+    - /work/inventories/vars/production.yml
+  become: yes
+
+  roles:
+    - geerlingguy.php
+    - geerlingguy.composer
+    - geerlingguy.redis
+
+  # Send system email someplace sane by re-pointing the
+  tasks:
+    - name: Add config to php-fpm pool
+      blockinfile:
+        dest: /etc/php-fpm.d/www.conf
+        marker: ; ANSIBLE MANAGED BLOCK
+        block: |
+          pm.status_path = /status
+          ping.path = /ping
+          ping.response = pong
+          access.log = /var/log/php-fpm/$pool.access.log
+          access.format = "%R - %u %t \"%m %r%Q%q\" %s %f %{mili}d %{kilo}M %C%%"
