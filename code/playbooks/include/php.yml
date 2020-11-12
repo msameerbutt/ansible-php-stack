@@ -8,12 +8,17 @@
   become: yes
 
   roles:
+    #- ansible-role-php-versions
     - geerlingguy.php
     - geerlingguy.composer
     - geerlingguy.redis
 
   # Send system email someplace sane by re-pointing the
   tasks:
+    - name: Copy PHP configuraitons files
+      copy: src={{ ConfigurationFilesDir }}/{{ item }} dest=/etc/php-fpm.d/{{ item }} mode=0600 owner=root group=root 
+      with_items: "{{ ConfigurationFiles }}"
+      
     - name: Add config to php-fpm pool
       blockinfile:
         dest: /etc/php-fpm.d/www.conf

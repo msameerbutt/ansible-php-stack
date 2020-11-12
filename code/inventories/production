@@ -3,7 +3,7 @@ app.prod.host1
 app.prod.host2
 
 [mysqldb]
-app.prod.db1
+app.prod.db1 db_mysql_master_host=127.0.0.1
 
 [redis]
 app.prod.redis
@@ -15,5 +15,5 @@ app.prod.mail
 post_install_script=/var/www/post-install
 
 [all:vars]
-ansible_ssh_user=node_user
-ansible_ssh_private_key_file=/run/secrets/node_user_id_rsa
+ansible_ssh_user=root
+ansible_ssh_private_key_file=/run/secrets/id_rsa

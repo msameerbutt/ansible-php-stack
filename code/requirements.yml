@@ -22,3 +22,5 @@
 - src: geerlingguy.repo-epel
 - src: ontic.logrotate
 - src: resmo.ntp
+- src: https://github.com/geerlingguy/ansible-role-php-versions
+  name: ansible-role-php-versions

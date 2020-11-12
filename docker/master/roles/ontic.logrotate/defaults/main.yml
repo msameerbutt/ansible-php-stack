@@ -1,9 +1,0 @@
-# Copyright (c) Ontic. (http://www.ontic.com.au). All rights reserved.
-# See the COPYING file bundled with this package for license details.
-
----
-
-logrotate_packages:
-logrotate_force_all: no
-logrotate_config_template: 'logrotate.j2'
-logrotate_config_files:

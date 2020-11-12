@@ -1,6 +1,6 @@
 ---
 #
-# SSLCertificate files used by udify 
+# SSLCertificate files used by site 
 # Note : Currently self signed certs - Update when we've purchased real ones & move to Vault.
 #
 SSLCertificateSrcDir: /work/files/ssl
@@ -8,6 +8,13 @@ SSLCertificateFiles:
 - app.www.test.crt
 - app.www.test.key
 - app.www.test.crt
+
+#
+# ConfigurationFiles files used by site 
+#
+ConfigurationFilesDir: /work/files
+ConfigurationFiles:
+- www.conf
 
 #
 # Logrotate config - used by logrotate role
@@ -57,25 +64,25 @@ logrotate_config_files:
 #
 # PHP settings used by geerlingguy.php
 #
-php_default_version_debian: "7.4"
-php_packages:
-- php-devel
-- php-common
-- php-pecl-apcu
-- php-pecl-zip
-- php-pear
-- php-xml
-- php-dom
-- php-mcrypt
-- php-gd
-- php-mbstring
-- php-bcmath
-- php-igbinary
-- php-cli
-- php-curl
-- php-mysql
-- php-fpm
-- php-pecl-zendopcache
+php_version: '7.4'
+#php_packages:
+#- php-devel
+#- php-common
+#- php-pecl-apcu
+#- php-pecl-zip
+#- php-pear
+#- php-xml
+#- php-dom
+#- php-mcrypt
+#- php-gd
+#- php-mbstring
+#- php-bcmath
+#- php-igbinary
+#- php-cli
+#- php-curl
+#- php-mysql
+#- php-fpm
+#- php-pecl-zendopcache
 
 php_memory_limit: "512M"
 php_max_input_vars: "250"
@@ -87,7 +94,7 @@ php_enable_apc: true
 php_apc_enable_cli: true
 php_apc_shm_size: "64M"
 php_enablerepo: "remi-php72,epel"
-php_packages_state: "installed"
+php_packages_state: "present"
 php_enable_webserver: false
 php_webserver_daemon: "nginx"
 php_enable_php_fpm: true
@@ -105,9 +112,7 @@ php_short_open_tag: false
 # /etc/hosts updates for local services - used by bertvv.hosts
 #
 hosts_entries:
-- name: www-db
-  ip: "{{ db_mysql_master_host }}"
-- name: portal-db
+- name: www-db1
   ip: "{{ db_mysql_master_host }}"
 
 #
