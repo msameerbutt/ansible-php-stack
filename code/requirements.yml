@@ -20,6 +20,7 @@
 - src: geerlingguy.mysql
 - src: geerlingguy.repo-remi
 - src: geerlingguy.repo-epel
+- src: geerlingguy.postfix
 - src: ontic.logrotate
 - src: resmo.ntp
 - src: https://github.com/geerlingguy/ansible-role-php-versions

@@ -15,8 +15,12 @@
 
   # Send system email someplace sane by re-pointing the
   tasks:
+    - name: Create PHP FMP configuration directory
+      file:
+        path: /etc/php-fpm.d
+        state: directory
     - name: Copy PHP configuraitons files
-      copy: src={{ ConfigurationFilesDir }}/{{ item }} dest=/etc/php-fpm.d/{{ item }} mode=0600 owner=root group=root 
+      copy: src={{ ConfigurationFilesDir }}/{{ item }} dest=/etc/php-fpm.d/{{ item }} mode=0600 owner=root group=root
       with_items: "{{ ConfigurationFiles }}"
       
     - name: Add config to php-fpm pool

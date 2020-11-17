@@ -1,0 +1,26 @@
+---
+#
+# Use postfix for sending local email
+#
+- hosts: web
+  vars_files:
+    - /work/inventories/vars/production.yml
+  become: yes
+
+  roles:
+    - geerlingguy.postfix
+
+  tasks:
+    - name: Update postfix config file
+      lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: ^inet_interfaces
+        line: inet_interfaces = all
+
+    - name: Update /etc/aliases
+      lineinfile:
+        dest: /etc/aliases
+        line: "root: {{ root_email_alias }}"
+
+    - name: Run newaliases
+      shell: newaliases

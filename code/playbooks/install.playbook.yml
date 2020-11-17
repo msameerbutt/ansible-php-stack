@@ -1,6 +1,0 @@
----
-- hosts: web
-  vars_files:
-    - /work/vars/prod.php.yml
-  roles:
-  - geerlingguy.php

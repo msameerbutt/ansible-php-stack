@@ -1,0 +1,50 @@
+---
+#
+# Mysql Database
+#
+- hosts: mysqldb
+  vars_files:
+    - /work/inventories/vars/production.yml
+  become: yes
+
+  #
+  # Note : A fresh Mysql 5.7 gets created with a random root password - which you can dig out of /var/log/mysqld.err
+  # Seems the geerlingguy.mysql script is not taking this into account... The temporary password needs to be extracted
+  # before the login attempt... not after as is scripted - so look into that later.
+  #
+  # Anyhow - the work around is to get the password from the error log, run mysql_secure_installation and
+  # create /root/.my.cnf with user="root"\npassword="xxxx" - Re-script that into here when time permits.
+  #
+  # Use official MySql5.7
+  # https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm
+  # https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm
+  # name: https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+  #
+  # re-setup command line : yum remove mysql -y; rm -rf /var/lib/mysql
+  #
+  pre_tasks:
+    - name: Install the MySQL repo.
+      yum:
+        name: https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Override variables for MySQL (RedHat).
+      set_fact:
+        mysql_daemon: mysqld
+        mysql_packages: ['mysql-server']
+        mysql_log_error: /var/log/mysqld.err
+        mysql_syslog_tag: mysqld
+        mysql_pid_file: /var/run/mysqld/mysqld.pid
+        mysql_socket: /var/lib/mysql/mysql.sock
+        innodb_ft_min_token_size: "2"
+        ft_min_word_len: "2"
+      when: ansible_os_family == "RedHat"
+
+#    - name: Remove log file
+#      file:
+#        state: absent
+#        path: "{{ mysql_log_error }}"
+
+  roles:
+    - geerlingguy.mysql

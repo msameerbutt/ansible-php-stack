@@ -19,11 +19,10 @@ services:
       - ${PWD}/code:/work
       - ${PWD}/docker/master/roles:/etc/ansible/roles
       - ${PWD}/docker/master/ansible.cfg:/etc/ansible/ansible.cfg
-      - ${PWD}/docker/keys/node_user/id_rsa:/root/.ssh/id_rsa
       - ${SSH_AUTH_SOCK}:/ssh-agent
     tty: true
     secrets:
-      - node_user_id_rsa   
+      - id_rsa
     command: ["bash"] 
     networks:
       - prod-stack
@@ -37,7 +36,7 @@ services:
     container_name: node1
     privileged: true
     volumes:
-      - ${PWD}/docker/keys/node_user/id_rsa.pub:/home/node_user/.ssh/authorized_keys
+      - ${PWD}/docker/keys/root/id_rsa.pub:/root/.ssh/authorized_keys
     tty: true
     networks:
       prod-stack:
@@ -53,7 +52,7 @@ services:
     container_name: node2
     privileged: true
     volumes:
-      - ${PWD}/docker/keys/node_user/id_rsa.pub:/home/node_user/.ssh/authorized_keys
+      - ${PWD}/docker/keys/root/id_rsa.pub:/root/.ssh/authorized_keys
     tty: true
     networks:
       prod-stack:
@@ -69,7 +68,7 @@ services:
     container_name: node3
     privileged: true
     volumes:
-      - ${PWD}/docker/keys/node_user/id_rsa.pub:/home/node_user/.ssh/authorized_keys
+      - ${PWD}/docker/keys/root/id_rsa.pub:/root/.ssh/authorized_keys
     tty: true
     networks:
       prod-stack:
@@ -85,7 +84,7 @@ services:
     container_name: node4
     privileged: true
     volumes:
-      - ${PWD}/docker/keys/node_user/id_rsa.pub:/home/node_user/.ssh/authorized_keys
+      - ${PWD}/docker/keys/root/id_rsa.pub:/root/.ssh/authorized_keys
     tty: true
     networks:
       prod-stack:
@@ -101,7 +100,7 @@ services:
     container_name: node5
     privileged: true
     volumes:
-      - ${PWD}/docker/keys/node_user/id_rsa.pub:/home/node_user/.ssh/authorized_keys
+      - ${PWD}/docker/keys/root/id_rsa.pub:/root/.ssh/authorized_keys
     tty: true
     networks:
       prod-stack:
@@ -109,5 +108,5 @@ services:
           - app.prod.mail
 
 secrets:
-  node_user_id_rsa:
-    file: ${PWD}/docker/keys/node_user/id_rsa  
+  id_rsa:
+    file: ${PWD}/docker/keys/root/id_rsa
